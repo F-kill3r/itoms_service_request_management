@@ -74,7 +74,7 @@ public class Task {
     private TaskStatus status;
 
     @Column(name = "status_code", nullable = false)
-    private int statusCode;
+    private String statusCode;
 
     @Column(name = "name", nullable = false)
     private String name;
