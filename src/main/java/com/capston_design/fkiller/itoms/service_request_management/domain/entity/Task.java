@@ -1,5 +1,5 @@
 package com.capston_design.fkiller.itoms.service_request_management.domain.entity;
-
+import com.capston_design.fkiller.itoms.service_request_management.domain.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -11,7 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Table(name = "TASK")
-public class Task {
+public class Task extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false, updatable = false)
