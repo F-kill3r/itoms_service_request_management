@@ -1,3 +1,5 @@
+server:
+  port: 8081
 spring:
   application:
     name: ServiceRequestManagement
@@ -15,6 +17,15 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 100
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            logger-level: ${LOGGER_LEVEL}
+          ticket-core:
+            url: ${TICKET_CORE_URL}
+
 springdoc:
   swagger-ui:
     path: ${SWAGGER_PATH}/swagger-ui.html

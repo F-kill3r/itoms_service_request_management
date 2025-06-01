@@ -20,8 +20,12 @@ public class Task extends BaseEntity {
     @Column(name = "incident_id", nullable = false)
     private UUID incidentId;
 
-    @Column(name = "ticket_id", nullable = false)
-    private UUID ticketId;
+    @Column(name = "ticket_id")
+    private Long ticketId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ticket_id", referencedColumnName = "ticket_id", insertable = false, updatable = false)
+    private TicketInformation ticketInformation;
 
     @Column(name = "charger_id", nullable = false)
     private Long chargerId;
@@ -63,12 +67,6 @@ public class Task extends BaseEntity {
     @Column(name = "plan_duration")
     private LocalDateTime planDuration;
 
-    @Column(name = "ticket_plan_start_date", nullable = false)
-    private LocalDateTime ticketPlanStartDate;
-
-    @Column(name = "ticket_plan_end_date", nullable = false)
-    private LocalDateTime ticketPlanEndDate;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private TaskStatus status;
@@ -84,4 +82,6 @@ public class Task extends BaseEntity {
 
     @Column(name = "active", nullable = false)
     private boolean active;
+
+
 }
