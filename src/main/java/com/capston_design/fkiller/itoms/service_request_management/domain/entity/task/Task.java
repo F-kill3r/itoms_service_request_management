@@ -1,4 +1,5 @@
-package com.capston_design.fkiller.itoms.service_request_management.domain.entity;
+package com.capston_design.fkiller.itoms.service_request_management.domain.entity.task;
+import com.capston_design.fkiller.itoms.service_request_management.domain.entity.ticket_information.TicketInformation;
 import com.capston_design.fkiller.itoms.service_request_management.domain.entity.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,14 +22,14 @@ public class Task extends BaseEntity {
     private UUID incidentId;
 
     @Column(name = "ticket_id")
-    private Long ticketId;
+    private UUID ticketId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ticket_id", referencedColumnName = "ticket_id", insertable = false, updatable = false)
     private TicketInformation ticketInformation;
 
     @Column(name = "charger_id", nullable = false)
-    private Long chargerId;
+    private String chargerId;
 
     @Column(name = "charger_name", nullable = false)
     private String chargerName;
@@ -37,7 +38,7 @@ public class Task extends BaseEntity {
     private String chargerDept;
 
     @Column(name = "creator_id", nullable = false)
-    private Long creatorId;
+    private String creatorId;
 
     @Column(name = "creator_name", nullable = false)
     private String creatorName;

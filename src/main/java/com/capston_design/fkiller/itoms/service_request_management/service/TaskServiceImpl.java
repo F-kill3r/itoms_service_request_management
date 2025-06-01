@@ -1,7 +1,10 @@
 package com.capston_design.fkiller.itoms.service_request_management.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TaskServiceImpl {
+@RequiredArgsConstructor
+public class TaskServiceImpl implements TaskService{
+
 }
