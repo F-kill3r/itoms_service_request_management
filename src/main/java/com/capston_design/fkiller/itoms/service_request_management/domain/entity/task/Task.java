@@ -28,20 +28,8 @@ public class Task extends BaseEntity {
     @JoinColumn(name = "ticket_id", referencedColumnName = "ticket_id", insertable = false, updatable = false)
     private TicketInformation ticketInformation;
 
-    @Column(name = "charger_id", nullable = false)
-    private String chargerId;
-
-    @Column(name = "charger_name", nullable = false)
-    private String chargerName;
-
     @Column(name = "charger_dept")
     private String chargerDept;
-
-    @Column(name = "creator_id", nullable = false)
-    private String creatorId;
-
-    @Column(name = "creator_name", nullable = false)
-    private String creatorName;
 
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
@@ -69,20 +57,19 @@ public class Task extends BaseEntity {
     private LocalDateTime planDuration;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private TaskStatus status;
+    @Column(name = "task_status", nullable = false)
+    private TaskStatus taskStatus;
 
     @Column(name = "status_code", nullable = false)
     private String statusCode;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "task_name", nullable = false)
+    private String taskName;
 
-    @Column(name = "content", columnDefinition = "TEXT")
-    private String content;
+    @Column(name = "task_content", columnDefinition = "TEXT")
+    private String taskContent;
 
-    @Column(name = "active", nullable = false)
-    private boolean active;
-
+    @Column(name = "task_active", nullable = false)
+    private boolean taskActive;
 
 }
