@@ -26,6 +26,7 @@ public class TicketInformation {
     @Column(name = "ticket_content")
     private String ticketContent;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "ticket_status", nullable = false)
     private TicketStatus ticketStatus;
 
@@ -63,4 +64,6 @@ public class TicketInformation {
        this.chargerId = chargerId;
        this.chargerName = chargerName;
    }
+
+
 }

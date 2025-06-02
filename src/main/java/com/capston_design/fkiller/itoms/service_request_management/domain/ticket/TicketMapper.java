@@ -4,11 +4,9 @@ import com.capston_design.fkiller.itoms.service_request_management.client.dto.re
 import com.capston_design.fkiller.itoms.service_request_management.controller.dto.response.TicketInformationResponseDTO;
 import com.capston_design.fkiller.itoms.service_request_management.domain.entity.ticket_information.TicketInformation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +30,19 @@ public class TicketMapper {
                     ticketInformationDTO.getCreatorName(),
                     ticketInformationDTO.getAcceptorId(),
                     ticketInformationDTO.getAcceptorName());
+    }
+
+    public TicketDomain toTicketDomain(TicketInformation ticketInformation) {
+        return ticketCreator.createInitTicket(
+                ticketInformation.getTicketId(),
+                ticketInformation.getIncidentId(),
+                ticketInformation.getTicketName(),
+                ticketInformation.getTicketContent(),
+                ticketInformation.getTicketStatus(),
+                ticketInformation.getCreatorId(),
+                ticketInformation.getCreatorName(),
+                ticketInformation.getChargerId(),
+                ticketInformation.getChargerName());
     }
 
     public List<TicketInformation> toTicketInformationEntityList(List<TicketDomain> ticketDomainList) {

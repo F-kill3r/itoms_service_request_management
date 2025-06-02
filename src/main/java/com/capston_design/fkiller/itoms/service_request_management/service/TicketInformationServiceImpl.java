@@ -2,8 +2,10 @@ package com.capston_design.fkiller.itoms.service_request_management.service;
 
 import com.capston_design.fkiller.itoms.service_request_management.client.TicketCoreClient;
 import com.capston_design.fkiller.itoms.service_request_management.client.dto.request.TicketListRequestDTO;
-import com.capston_design.fkiller.itoms.service_request_management.controller.dto.request.AssignedTicketListRequestDTO;
+import com.capston_design.fkiller.itoms.service_request_management.common.exception.BaseException;
 import com.capston_design.fkiller.itoms.service_request_management.controller.dto.response.TicketInformationResponseDTO;
+import com.capston_design.fkiller.itoms.service_request_management.domain.entity.ticket_information.TicketInformation;
+import com.capston_design.fkiller.itoms.service_request_management.domain.ticket.TicketDomain;
 import com.capston_design.fkiller.itoms.service_request_management.domain.ticket.TicketMapper;
 import com.capston_design.fkiller.itoms.service_request_management.repository.TicketInformationRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,13 @@ public class TicketInformationServiceImpl implements TicketInformationService {
                     return ticketMapper.toTicketInformationResponseDTOList(ticketDomainList);
                 })
                 .orElse(Collections.emptyList());
+    }
+
+    @Override
+    public TicketDomain getTicketInformation(UUID ticketId) {
+        TicketInformation ticketInformation = ticketInformationRepository.findByTicketId(ticketId)
+                .orElseThrow(() -> BaseException.createBaseExceptionWithoutDetail(400, "유효하지 않은 티켓ID 입니다."));
+        return ticketMapper.toTicketDomain(ticketInformation);
     }
 
 }

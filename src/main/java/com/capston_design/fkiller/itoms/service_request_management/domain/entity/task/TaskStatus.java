@@ -3,7 +3,6 @@ package com.capston_design.fkiller.itoms.service_request_management.domain.entit
 import lombok.Getter;
 
 @Getter
-
 public enum TaskStatus {
     NOT_STARTED("ts1000", "NOT_STARTED", "작업 시작 전"),
     IN_PROGRESS("ts1001", "IN_PROGRESS", "작업 진행 중"),
