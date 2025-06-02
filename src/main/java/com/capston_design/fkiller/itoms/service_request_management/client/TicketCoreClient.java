@@ -16,7 +16,7 @@ public interface TicketCoreClient {
     @PostMapping("/v1/tickets/by-acceptor")
     List<TicketInformationDTO> getTicketList(@RequestBody TicketListRequestDTO request);
 
-    @PostMapping("/callback/task/{taskId}/complete")
+    @PostMapping("/callback/v1/task/{taskId}/complete")
     void updateTaskStatus(@PathVariable UUID taskId,
                           @RequestBody UpdateTaskStatusRequestDTO request);
 
