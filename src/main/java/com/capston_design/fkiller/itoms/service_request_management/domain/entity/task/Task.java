@@ -72,4 +72,14 @@ public class Task extends BaseEntity {
     @Column(name = "task_active", nullable = false)
     private boolean taskActive;
 
+    public void updateTaskStatus(TaskStatus taskStatus){
+        this.taskStatus = taskStatus;
+        this.statusCode = taskStatus.getCode();
+        this.taskActive = checkTaskActive();
+    }
+
+    private boolean checkTaskActive() {
+        return this.taskStatus == TaskStatus.IN_PROGRESS;
+    }
+
 }

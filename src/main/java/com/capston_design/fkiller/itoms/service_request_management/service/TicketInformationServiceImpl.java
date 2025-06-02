@@ -9,6 +9,7 @@ import com.capston_design.fkiller.itoms.service_request_management.domain.ticket
 import com.capston_design.fkiller.itoms.service_request_management.domain.ticket.TicketMapper;
 import com.capston_design.fkiller.itoms.service_request_management.repository.TicketInformationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +39,7 @@ public class TicketInformationServiceImpl implements TicketInformationService {
     @Override
     public TicketDomain getTicketInformation(UUID ticketId) {
         TicketInformation ticketInformation = ticketInformationRepository.findByTicketId(ticketId)
-                .orElseThrow(() -> BaseException.createBaseExceptionWithoutDetail(400, "유효하지 않은 티켓ID 입니다."));
+                .orElseThrow(() -> BaseException.createBaseExceptionWithoutDetail(HttpStatus.BAD_REQUEST, "유효하지 않은 티켓ID 입니다."));
         return ticketMapper.toTicketDomain(ticketInformation);
     }
 

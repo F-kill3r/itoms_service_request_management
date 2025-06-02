@@ -1,6 +1,8 @@
 package com.capston_design.fkiller.itoms.service_request_management.domain.entity.task;
 
+import com.capston_design.fkiller.itoms.service_request_management.common.exception.BaseException;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 public enum TaskStatus {
@@ -24,6 +26,17 @@ public enum TaskStatus {
                 return status;
             }
         }
-        throw new IllegalArgumentException("Invalid TaskStatus code: " + code);
+        throw BaseException.createBaseExceptionWithoutDetail(HttpStatus.BAD_REQUEST,
+                "정의되지 않은 TaskStatus 코드입니다.");
+    }
+
+    public static TaskStatus fromCodeName(String codeName) {
+        for (TaskStatus status : TaskStatus.values()) {
+            if (status.getCodeName().equals(codeName)) {
+                return status;
+            }
+        }
+        throw BaseException.createBaseExceptionWithoutDetail(HttpStatus.BAD_REQUEST,
+                "정의되지 않은 TaskStatus 코드명입니다.");
     }
 }

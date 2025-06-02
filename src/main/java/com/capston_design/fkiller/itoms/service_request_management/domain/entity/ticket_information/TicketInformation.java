@@ -65,5 +65,4 @@ public class TicketInformation {
        this.chargerName = chargerName;
    }
 
-
 }
