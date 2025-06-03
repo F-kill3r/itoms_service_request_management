@@ -65,4 +65,8 @@ public class TicketInformation {
        this.chargerName = chargerName;
    }
 
+   public void updateTicketStatus(TicketStatus ticketStatus) {
+       this.ticketStatus = ticketStatus;
+   }
+
 }
