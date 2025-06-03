@@ -31,6 +31,4 @@ public class TaskController {
         return taskService.updateTaskStatus(task_id, taskStatus, clockHolder.now());
     }
 
-
-
 }

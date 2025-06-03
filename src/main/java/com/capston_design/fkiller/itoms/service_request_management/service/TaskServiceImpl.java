@@ -12,7 +12,7 @@ import com.capston_design.fkiller.itoms.service_request_management.domain.task.T
 import com.capston_design.fkiller.itoms.service_request_management.domain.ticket.TicketDomain;
 import com.capston_design.fkiller.itoms.service_request_management.repository.TaskRepository;
 import com.capston_design.fkiller.itoms.service_request_management.service.dto.TaskStatusUpdateEvent;
-import com.capston_design.fkiller.itoms.service_request_management.service.event.rest.RestTaskStausUpdateEventListener;
+import com.capston_design.fkiller.itoms.service_request_management.service.event.rest.RestTaskEventListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ import java.util.UUID;
 public class TaskServiceImpl implements TaskService{
 
     private final TicketInformationService ticketInformationService;
-    private final RestTaskStausUpdateEventListener restTaskStausUpdateEventListener;
+    private final RestTaskEventListener restTaskEventListener;
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
     private final TaskCreator taskCreator;
@@ -47,7 +47,7 @@ public class TaskServiceImpl implements TaskService{
                 .orElseThrow(() -> BaseException.createBaseExceptionWithoutDetail(HttpStatus.BAD_REQUEST,
                         "유효하지 않은 Task ID 입니다."));
         task.updateTaskStatus(TaskStatus.fromCodeName(taskStatus));
-        restTaskStausUpdateEventListener.handleTaskStatusUpdateEvent(
+        restTaskEventListener.handleTaskStatusUpdateEvent(
                 new TaskStatusUpdateEvent(task_id, task.getTicketId(), task.getTaskName(), taskStatus, updatedTime));
         Task updateTask = taskRepository.save(task);
 
