@@ -12,6 +12,7 @@ import com.capston_design.fkiller.itoms.service_request_management.domain.ticket
 import com.capston_design.fkiller.itoms.service_request_management.repository.TicketInformationRepository;
 import com.capston_design.fkiller.itoms.service_request_management.service.dto.TicketStatusUpdateEvent;
 import com.capston_design.fkiller.itoms.service_request_management.service.event.rest.RestTicketEventListener;
+import com.capston_design.fkiller.itoms.service_request_management.service.event.KafkaTicketStatusPublisher;
 import com.capston_design.fkiller.itoms.service_request_management.validator.TaskValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,7 @@ public class TicketInformationServiceImpl implements TicketInformationService {
     private final TicketCoreClient ticketCoreClient;
     private final TicketInformationRepository ticketInformationRepository;
     private final RestTicketEventListener restTicketEventListener;
+    private final KafkaTicketStatusPublisher kafkaTicketStatusPublisher;
     private final TicketMapper ticketMapper;
     private final TaskValidator taskValidator;
 
@@ -59,10 +61,10 @@ public class TicketInformationServiceImpl implements TicketInformationService {
 
         if(taskValidator.checkAllTaskCompleted(request.getTicketId())){
             ticketInformation.updateTicketStatus(TicketStatus.COMPLETE_EXECUTION);
-            restTicketEventListener.handleTicketStatusUpdateEvent(
-                    new TicketStatusUpdateEvent(request.getTicketId(), ticketInformation.getTicketName(),
-                            TicketStatus.COMPLETE_EXECUTION.getCodeName(), completionTime)
-            );
+            TicketStatusUpdateEvent event = new TicketStatusUpdateEvent(request.getTicketId(), ticketInformation.getTicketName(),
+                    TicketStatus.COMPLETE_EXECUTION.getCodeName(), completionTime);
+            restTicketEventListener.handleTicketStatusUpdateEvent(event);
+            kafkaTicketStatusPublisher.handleTicketStatusUpdateEvent(event);
             ticketInformationRepository.save(ticketInformation);
         } else {
             throw BaseException.createBaseExceptionWithoutDetail(
